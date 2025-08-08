@@ -7,63 +7,53 @@ spec:
   generators:
     - list:
         elements:
-          - name: argocd
-            path: infrastructure/argocd
-            namespace: argocd
-            repoURL: https://github.com/lixiaojun2914/demo-infra
-            targetRevision: main
           - name: istio
-            path: infrastructure/istio
+            path: gitops/infrastructure/istio
             namespace: istio-system
             repoURL: https://github.com/lixiaojun2914/demo-infra
             targetRevision: main
           - name: prometheus
-            path: infrastructure/monitoring/prometheus
+            path: gitops/infrastructure/monitoring/prometheus
             namespace: monitoring
             repoURL: https://github.com/lixiaojun2914/demo-infra
             targetRevision: main
           - name: grafana
-            path: infrastructure/monitoring/grafana
+            path: gitops/infrastructure/monitoring/grafana
             namespace: monitoring
             repoURL: https://github.com/lixiaojun2914/demo-infra
             targetRevision: main
           - name: alertmanager
-            path: infrastructure/monitoring/alertmanager
+            path: gitops/infrastructure/monitoring/alertmanager
             namespace: monitoring
             repoURL: https://github.com/lixiaojun2914/demo-infra
             targetRevision: main
           - name: elasticsearch
-            path: infrastructure/logging/elasticsearch
+            path: gitops/infrastructure/logging/elasticsearch
             namespace: logging
             repoURL: https://github.com/lixiaojun2914/demo-infra
             targetRevision: main
           - name: fluentd
-            path: infrastructure/logging/fluentd
+            path: gitops/infrastructure/logging/fluentd
             namespace: logging
             repoURL: https://github.com/lixiaojun2914/demo-infra
             targetRevision: main
           - name: kibana
-            path: infrastructure/logging/kibana
+            path: gitops/infrastructure/logging/kibana
             namespace: logging
             repoURL: https://github.com/lixiaojun2914/demo-infra
             targetRevision: main
           - name: cert-manager
-            path: infrastructure/security/cert-manager
+            path: gitops/infrastructure/security/cert-manager
             namespace: cert-manager
             repoURL: https://github.com/lixiaojun2914/demo-infra
             targetRevision: main
           - name: metallb
-            path: infrastructure/networking/metallm
+            path: gitops/infrastructure/networking/metallb
             namespace: metallb-system
             repoURL: https://github.com/lixiaojun2914/demo-infra
             targetRevision: main
-          - name: grafana
-            path: infrastructure/monitoring/grafana
-            namespace: monitoring
-            repoURL: https://github.com/lixiaojun2914/demo-infra
-            targetRevision: main
           - name: longhorn
-            path: infrastructure/storage/longhorn
+            path: gitops/infrastructure/storage/longhorn
             namespace: longhorn-system
             repoURL: https://github.com/lixiaojun2914/demo-infra
             targetRevision: main
