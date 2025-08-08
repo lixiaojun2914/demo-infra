@@ -1,0 +1,33 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+metadata:
+  name: prometheus
+
+namespace: monitoring
+
+commonLabels:
+  app.kubernetes.io/name: prometheus
+  app.kubernetes.io/part-of: monitoring
+
+resources:
+  - namespace.yaml
+  - prometheus-config.yaml
+  - prometheus-deployment.yaml
+  - prometheus-service.yaml
+  - prometheus-rbac.yaml
+
+configMapGenerator:
+  - name: prometheus-config
+    literals:
+      - prometheus.yml=|
+          global:
+            scrape_interval: 15s
+          scrape_configs:
+            - job_name: 'kubernetes-pods'
+              kubernetes_sd_configs:
+                - role: pod
+              relabel_configs:
+                - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+                  action: keep
+                  regex: true 

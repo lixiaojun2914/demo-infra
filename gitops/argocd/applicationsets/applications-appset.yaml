@@ -1,0 +1,65 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: applications
+  namespace: argocd
+spec:
+  generators:
+    - matrix:
+        generators:
+          - list:
+              elements:
+                - name: auth-service
+                  path: applications
+                  repoURL: https://github.com/your-org/demo-go
+                  targetRevision: main
+                - name: chat-service
+                  path: applications
+                  repoURL: https://github.com/your-org/demo-go
+                  targetRevision: main
+                - name: document-service
+                  path: applications
+                  repoURL: https://github.com/your-org/demo-go
+                  targetRevision: main
+                - name: search-service
+                  path: applications
+                  repoURL: https://github.com/your-org/demo-go
+                  targetRevision: main
+                - name: embedding-service
+                  path: applications
+                  repoURL: https://github.com/your-org/demo-go
+                  targetRevision: main
+          - list:
+              elements:
+                - env: dev
+                  namespace: dev
+                - env: staging
+                  namespace: staging
+                - env: prod
+                  namespace: prod
+
+  template:
+    metadata:
+      name: "{{name}}-{{env}}"
+      namespace: argocd
+      labels:
+        app.kubernetes.io/name: "{{name}}"
+        app.kubernetes.io/part-of: applications
+        environment: "{{env}}"
+    spec:
+      project: applications
+      source:
+        repoURL: "{{repoURL}}"
+        targetRevision: "{{targetRevision}}"
+        path: "{{path}}/{{env}}/{{name}}"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{namespace}}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          - PrunePropagationPolicy=foreground
+          - PruneLast=true

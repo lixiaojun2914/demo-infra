@@ -1,0 +1,78 @@
+# 预发布环境 Istio 配置
+global:
+  proxy:
+    resources:
+      requests:
+        cpu: 35m
+        memory: 48Mi
+      limits:
+        cpu: 300m
+        memory: 192Mi
+  defaultResources:
+    requests:
+      cpu: 75m
+      memory: 96Mi
+    limits:
+      cpu: 200m
+      memory: 384Mi
+  logging:
+    level: "default:info"
+  proxy:
+    logLevel: "info"
+    accessLogFile: "/dev/stdout"
+    accessLogFormat: ""
+    accessLogEncoding: "TEXT"
+
+pilot:
+  autoscaleEnabled: true
+  autoscaleMin: 1
+  autoscaleMax: 3
+  enableAnalysis: false
+  enableStatus: true
+  resources:
+    requests:
+      cpu: 150m
+      memory: 384Mi
+    limits:
+      cpu: 300m
+      memory: 768Mi
+
+gateways:
+  istio-ingressgateway:
+    autoscaleEnabled: true
+    autoscaleMin: 1
+    autoscaleMax: 3
+    resources:
+      requests:
+        cpu: 75m
+        memory: 96Mi
+      limits:
+        cpu: 200m
+        memory: 384Mi
+    service:
+      ports:
+        - name: http2
+          port: 80
+          targetPort: 8080
+        - name: https
+          port: 443
+          targetPort: 8443
+
+  istio-egressgateway:
+    enabled: false
+
+telemetry:
+  enabled: true
+  v2:
+    enabled: true
+    prometheus:
+      enabled: true
+    stackdriver:
+      enabled: false
+    metadata:
+      enabled: false
+    accessLogPolicy:
+      enabled: true
+
+tracing:
+  enabled: false 

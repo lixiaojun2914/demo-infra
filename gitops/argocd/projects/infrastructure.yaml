@@ -1,0 +1,82 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: infrastructure
+  namespace: argocd
+spec:
+  description: Infrastructure components (monitoring, logging, networking, etc.)
+
+  # 源仓库配置
+  sourceRepos:
+    - "https://github.com/your-org/demo-infra"
+
+  # 目标集群和命名空间
+  destinations:
+    - namespace: argocd
+      server: https://kubernetes.default.svc
+    - namespace: istio-system
+      server: https://kubernetes.default.svc
+    - namespace: monitoring
+      server: https://kubernetes.default.svc
+    - namespace: logging
+      server: https://kubernetes.default.svc
+    - namespace: cert-manager
+      server: https://kubernetes.default.svc
+    - namespace: metallb-system
+      server: https://kubernetes.default.svc
+    - namespace: longhorn-system
+      server: https://kubernetes.default.svc
+
+  # 集群资源白名单
+  clusterResourceWhitelist:
+    - group: ""
+      kind: Namespace
+    - group: "rbac.authorization.k8s.io"
+      kind: ClusterRole
+    - group: "rbac.authorization.k8s.io"
+      kind: ClusterRoleBinding
+    - group: "storage.k8s.io"
+      kind: StorageClass
+
+  # 命名空间资源白名单
+  namespaceResourceWhitelist:
+    - group: ""
+      kind: ConfigMap
+    - group: ""
+      kind: Secret
+    - group: ""
+      kind: Service
+    - group: ""
+      kind: ServiceAccount
+    - group: ""
+      kind: PersistentVolumeClaim
+    - group: "apps"
+      kind: Deployment
+    - group: "apps"
+      kind: StatefulSet
+    - group: "apps"
+      kind: DaemonSet
+    - group: "networking.k8s.io"
+      kind: Ingress
+    - group: "networking.k8s.io"
+      kind: NetworkPolicy
+    - group: "rbac.authorization.k8s.io"
+      kind: Role
+    - group: "rbac.authorization.k8s.io"
+      kind: RoleBinding
+    - group: "argoproj.io"
+      kind: Application
+    - group: "cert-manager.io"
+      kind: Certificate
+    - group: "cert-manager.io"
+      kind: ClusterIssuer
+    - group: "cert-manager.io"
+      kind: Issuer
+    - group: "networking.istio.io"
+      kind: Gateway
+    - group: "networking.istio.io"
+      kind: VirtualService
+    - group: "networking.istio.io"
+      kind: DestinationRule
+    - group: "security.istio.io"
+      kind: AuthorizationPolicy

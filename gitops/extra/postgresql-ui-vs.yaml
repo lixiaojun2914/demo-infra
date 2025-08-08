@@ -1,0 +1,27 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: postgresql-ui-vs
+  namespace: postgresql
+  labels:
+    app: postgresql-ui
+spec:
+  hosts:
+    - "www.lixiaojun.io"
+    - "lixiaojun.io"
+    - "195.35.37.243"
+  gateways:
+    - istio-system/shared-gateway
+  http:
+    - match:
+        - uri:
+            prefix: "/postgresql-ui"
+        - uri:
+            prefix: "/postgresql"
+      rewrite:
+        uri: "/"
+      route:
+        - destination:
+            host: postgres-operator-ui.postgresql.svc.cluster.local
+            port:
+              number: 80

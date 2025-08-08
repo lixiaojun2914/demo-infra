@@ -1,0 +1,30 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+metadata:
+  name: auth-service-dev
+
+namespace: dev
+
+commonLabels:
+  app.kubernetes.io/name: auth-service
+  app.kubernetes.io/part-of: applications
+  environment: dev
+
+resources:
+  - deployment.yaml
+  - service.yaml
+  - ingress.yaml
+
+images:
+  - name: auth-service
+    newTag: dev-latest
+    newName: your-registry/auth-service
+
+configMapGenerator:
+  - name: auth-service-config
+    literals:
+      - ENVIRONMENT=dev
+      - LOG_LEVEL=debug
+      - DB_HOST=postgres-dev
+      - DB_PORT=5432

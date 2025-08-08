@@ -1,0 +1,30 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: shared-gateway
+  namespace: istio-system
+  labels:
+    app: shared-gateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "www.lixiaojun.io"
+        - "lixiaojun.io"
+      tls:
+        httpsRedirect: true
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      hosts:
+        - "www.lixiaojun.io"
+        - "lixiaojun.io"
+      tls:
+        mode: SIMPLE
+        credentialName: shared-tls-secret

@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+metadata:
+  name: longhorn
+
+namespace: longhorn-system
+
+commonLabels:
+  app.kubernetes.io/name: longhorn
+  app.kubernetes.io/part-of: storage
+
+resources:
+  - namespace.yaml
+  - longhorn-deployment.yaml
+  - longhorn-service.yaml
+  - longhorn-rbac.yaml
+  - storage-class.yaml 

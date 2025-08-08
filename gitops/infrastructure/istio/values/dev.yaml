@@ -1,0 +1,76 @@
+# 开发环境 Istio 配置 - 针对 2核8G 服务器优化
+global:
+  proxy:
+    resources:
+      requests:
+        cpu: 25m
+        memory: 32Mi
+      limits:
+        cpu: 200m
+        memory: 128Mi
+  defaultResources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 150m
+      memory: 256Mi
+  logging:
+    level: "default:info"
+  proxy:
+    logLevel: "warning"
+    accessLogFile: "/dev/stdout"
+    accessLogFormat: ""
+    accessLogEncoding: "TEXT"
+
+pilot:
+  autoscaleEnabled: false
+  replicaCount: 1
+  enableAnalysis: false
+  enableStatus: false
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 200m
+      memory: 512Mi
+
+gateways:
+  istio-ingressgateway:
+    autoscaleEnabled: false
+    replicaCount: 1
+    resources:
+      requests:
+        cpu: 50m
+        memory: 64Mi
+      limits:
+        cpu: 150m
+        memory: 256Mi
+    service:
+      ports:
+        - name: http2
+          port: 80
+          targetPort: 8080
+        - name: https
+          port: 443
+          targetPort: 8443
+
+  istio-egressgateway:
+    enabled: false
+
+telemetry:
+  enabled: true
+  v2:
+    enabled: true
+    prometheus:
+      enabled: true
+    stackdriver:
+      enabled: false
+    metadata:
+      enabled: false
+    accessLogPolicy:
+      enabled: false
+
+tracing:
+  enabled: false 
