@@ -5,11 +5,11 @@ metadata:
   namespace: argocd
 spec:
   description: Business applications (auth-service, chat-service, etc.)
-  
+
   # 源仓库配置
   sourceRepos:
-    - 'https://github.com/your-org/demo-infra'
-  
+    - "https://github.com/lixiaojun2914/demo-infra"
+
   # 目标集群和命名空间
   destinations:
     - namespace: dev
@@ -18,35 +18,35 @@ spec:
       server: https://kubernetes.default.svc
     - namespace: prod
       server: https://kubernetes.default.svc
-  
+
   # 集群资源白名单
   clusterResourceWhitelist:
-    - group: ''
+    - group: ""
       kind: Namespace
-  
+
   # 命名空间资源白名单
   namespaceResourceWhitelist:
-    - group: ''
+    - group: ""
       kind: ConfigMap
-    - group: ''
+    - group: ""
       kind: Secret
-    - group: ''
+    - group: ""
       kind: Service
-    - group: ''
+    - group: ""
       kind: ServiceAccount
-    - group: ''
+    - group: ""
       kind: PersistentVolumeClaim
-    - group: 'apps'
+    - group: "apps"
       kind: Deployment
-    - group: 'apps'
+    - group: "apps"
       kind: StatefulSet
-    - group: 'networking.k8s.io'
+    - group: "networking.k8s.io"
       kind: Ingress
-    - group: 'networking.k8s.io'
+    - group: "networking.k8s.io"
       kind: NetworkPolicy
-    - group: 'rbac.authorization.k8s.io'
+    - group: "rbac.authorization.k8s.io"
       kind: Role
-    - group: 'rbac.authorization.k8s.io'
+    - group: "rbac.authorization.k8s.io"
       kind: RoleBinding
-    - group: 'argoproj.io'
-      kind: Application 
+    - group: "argoproj.io"
+      kind: Application

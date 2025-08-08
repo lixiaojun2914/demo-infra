@@ -11,23 +11,23 @@ spec:
               elements:
                 - name: auth-service
                   path: applications
-                  repoURL: https://github.com/your-org/demo-go
+                  repoURL: https://github.com/lixiaojun2914/demo-go
                   targetRevision: main
                 - name: chat-service
                   path: applications
-                  repoURL: https://github.com/your-org/demo-go
+                  repoURL: https://github.com/lixiaojun2914/demo-go
                   targetRevision: main
                 - name: document-service
                   path: applications
-                  repoURL: https://github.com/your-org/demo-go
+                  repoURL: https://github.com/lixiaojun2914/demo-go
                   targetRevision: main
                 - name: search-service
                   path: applications
-                  repoURL: https://github.com/your-org/demo-go
+                  repoURL: https://github.com/lixiaojun2914/demo-go
                   targetRevision: main
                 - name: embedding-service
                   path: applications
-                  repoURL: https://github.com/your-org/demo-go
+                  repoURL: https://github.com/lixiaojun2914/demo-go
                   targetRevision: main
           - list:
               elements:

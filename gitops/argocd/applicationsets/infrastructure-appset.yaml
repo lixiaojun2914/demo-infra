@@ -10,62 +10,62 @@ spec:
           - name: argocd
             path: infrastructure/argocd
             namespace: argocd
-            repoURL: https://github.com/your-org/demo-infra
+            repoURL: https://github.com/lixiaojun2914/demo-infra
             targetRevision: main
           - name: istio
             path: infrastructure/istio
             namespace: istio-system
-            repoURL: https://github.com/your-org/demo-infra
+            repoURL: https://github.com/lixiaojun2914/demo-infra
             targetRevision: main
           - name: prometheus
             path: infrastructure/monitoring/prometheus
             namespace: monitoring
-            repoURL: https://github.com/your-org/demo-infra
+            repoURL: https://github.com/lixiaojun2914/demo-infra
             targetRevision: main
           - name: grafana
             path: infrastructure/monitoring/grafana
             namespace: monitoring
-            repoURL: https://github.com/your-org/demo-infra
+            repoURL: https://github.com/lixiaojun2914/demo-infra
             targetRevision: main
           - name: alertmanager
             path: infrastructure/monitoring/alertmanager
             namespace: monitoring
-            repoURL: https://github.com/your-org/demo-infra
+            repoURL: https://github.com/lixiaojun2914/demo-infra
             targetRevision: main
           - name: elasticsearch
             path: infrastructure/logging/elasticsearch
             namespace: logging
-            repoURL: https://github.com/your-org/demo-infra
+            repoURL: https://github.com/lixiaojun2914/demo-infra
             targetRevision: main
           - name: fluentd
             path: infrastructure/logging/fluentd
             namespace: logging
-            repoURL: https://github.com/your-org/demo-infra
+            repoURL: https://github.com/lixiaojun2914/demo-infra
             targetRevision: main
           - name: kibana
             path: infrastructure/logging/kibana
             namespace: logging
-            repoURL: https://github.com/your-org/demo-infra
+            repoURL: https://github.com/lixiaojun2914/demo-infra
             targetRevision: main
           - name: cert-manager
             path: infrastructure/security/cert-manager
             namespace: cert-manager
-            repoURL: https://github.com/your-org/demo-infra
+            repoURL: https://github.com/lixiaojun2914/demo-infra
             targetRevision: main
           - name: metallb
             path: infrastructure/networking/metallm
             namespace: metallb-system
-            repoURL: https://github.com/your-org/demo-infra
+            repoURL: https://github.com/lixiaojun2914/demo-infra
             targetRevision: main
           - name: grafana
             path: infrastructure/monitoring/grafana
             namespace: monitoring
-            repoURL: https://github.com/your-org/demo-infra
+            repoURL: https://github.com/lixiaojun2914/demo-infra
             targetRevision: main
           - name: longhorn
             path: infrastructure/storage/longhorn
             namespace: longhorn-system
-            repoURL: https://github.com/your-org/demo-infra
+            repoURL: https://github.com/lixiaojun2914/demo-infra
             targetRevision: main
 
   template:

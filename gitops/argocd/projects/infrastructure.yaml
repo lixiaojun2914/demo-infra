@@ -8,7 +8,7 @@ spec:
 
   # 源仓库配置
   sourceRepos:
-    - "https://github.com/your-org/demo-infra"
+    - "https://github.com/lixiaojun2914/demo-infra"
 
   # 目标集群和命名空间
   destinations:
