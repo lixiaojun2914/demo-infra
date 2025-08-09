@@ -8,10 +8,13 @@ spec:
     - list:
         elements:
           - name: istio
-            path: gitops/infrastructure/istio
             namespace: istio-system
-            repoURL: https://github.com/lixiaojun2914/demo-infra
-            targetRevision: main
+            repoURL: https://istio-release.storage.googleapis.com/charts
+            targetRevision: 1.20.0
+            chart: istio
+            helm:
+              valueFiles:
+                - https://raw.githubusercontent.com/lixiaojun2914/demo-infra/main/gitops/infrastructure/istio/values/dev.yaml
           - name: prometheus
             path: gitops/infrastructure/monitoring/prometheus
             namespace: monitoring

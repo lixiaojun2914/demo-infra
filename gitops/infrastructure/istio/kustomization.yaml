@@ -11,6 +11,4 @@ commonLabels:
   app.kubernetes.io/part-of: service-mesh
 
 resources:
-  - istio-application.yaml
   - istio-gateway.yaml
-  - values/
