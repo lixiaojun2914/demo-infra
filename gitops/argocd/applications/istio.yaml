@@ -39,3 +39,5 @@ spec:
       - PrunePropagationPolicy=foreground
       - PruneLast=true
       - ApplyOutOfSyncOnly=true
+      - SkipDryRunOnMissingResource=true
+      - ServerSideApply=true

@@ -26,38 +26,6 @@ spec:
             valuesRepoURL: https://github.com/lixiaojun2914/demo-infra
             valuesRevision: main
             valuesFile: gitops/infrastructure/monitoring/grafana/values/dev.yaml
-          - name: elasticsearch
-            namespace: logging
-            chartRepoURL: https://helm.elastic.co
-            chartName: elasticsearch
-            chartVersion: 8.5.1
-            valuesRepoURL: https://github.com/lixiaojun2914/demo-infra
-            valuesRevision: main
-            valuesFile: gitops/infrastructure/logging/elasticsearch/values/dev.yaml
-          - name: fluentbit
-            namespace: logging
-            chartRepoURL: https://fluent.github.io/helm-charts
-            chartName: fluent-bit
-            chartVersion: 0.47.9
-            valuesRepoURL: https://github.com/lixiaojun2914/demo-infra
-            valuesRevision: main
-            valuesFile: gitops/infrastructure/logging/fluentbit/values/dev.yaml
-          - name: kibana
-            namespace: logging
-            chartRepoURL: https://helm.elastic.co
-            chartName: kibana
-            chartVersion: 7.17.3
-            valuesRepoURL: https://github.com/lixiaojun2914/demo-infra
-            valuesRevision: main
-            valuesFile: gitops/infrastructure/logging/kibana/values/dev.yaml
-          - name: longhorn
-            namespace: longhorn-system
-            chartRepoURL: https://charts.longhorn.io
-            chartName: longhorn
-            chartVersion: 1.8.2
-            valuesRepoURL: https://github.com/lixiaojun2914/demo-infra
-            valuesRevision: main
-            valuesFile: gitops/infrastructure/storage/longhorn/values/dev.yaml
   template:
     metadata:
       name: "{{name}}"
