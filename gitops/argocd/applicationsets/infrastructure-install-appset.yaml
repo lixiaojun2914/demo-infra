@@ -10,19 +10,11 @@ spec:
   generators:
     - list:
         elements:
-          - name: istio
-            namespace: istio-system
-            chartRepoURL: https://istio-release.storage.googleapis.com/charts
-            chartName: istio
-            chartVersion: 1.20.0
-            valuesRepoURL: https://github.com/lixiaojun2914/demo-infra
-            valuesRevision: main
-            valuesFile: gitops/infrastructure/istio/values/dev.yaml
           - name: prometheus
             namespace: monitoring
             chartRepoURL: https://prometheus-community.github.io/helm-charts
             chartName: prometheus
-            chartVersion: 25.27.0
+            chartVersion: 27.28.2
             valuesRepoURL: https://github.com/lixiaojun2914/demo-infra
             valuesRevision: main
             valuesFile: gitops/infrastructure/monitoring/prometheus/values/dev.yaml
@@ -30,7 +22,7 @@ spec:
             namespace: monitoring
             chartRepoURL: https://grafana.github.io/helm-charts
             chartName: grafana
-            chartVersion: 7.3.12
+            chartVersion: 9.2.10
             valuesRepoURL: https://github.com/lixiaojun2914/demo-infra
             valuesRevision: main
             valuesFile: gitops/infrastructure/monitoring/grafana/values/dev.yaml
@@ -54,7 +46,7 @@ spec:
             namespace: logging
             chartRepoURL: https://helm.elastic.co
             chartName: kibana
-            chartVersion: 8.5.1
+            chartVersion: 7.17.3
             valuesRepoURL: https://github.com/lixiaojun2914/demo-infra
             valuesRevision: main
             valuesFile: gitops/infrastructure/logging/kibana/values/dev.yaml
@@ -62,7 +54,7 @@ spec:
             namespace: longhorn-system
             chartRepoURL: https://charts.longhorn.io
             chartName: longhorn
-            chartVersion: 1.6.2
+            chartVersion: 1.8.2
             valuesRepoURL: https://github.com/lixiaojun2914/demo-infra
             valuesRevision: main
             valuesFile: gitops/infrastructure/storage/longhorn/values/dev.yaml
