@@ -65,10 +65,3 @@ metadata:
   labels:
     app.kubernetes.io/part-of: istio
     istio-injection: enabled
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: metallb-system
-  labels:
-    app.kubernetes.io/part-of: metallb
