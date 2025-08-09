@@ -11,3 +11,4 @@ commonLabels:
 resources:
   - namespace.yaml
   - resource-quotas.yaml
+  - limitranges.yaml

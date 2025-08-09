@@ -7,14 +7,6 @@ spec:
   generators:
     - list:
         elements:
-          - name: istio
-            namespace: istio-system
-            repoURL: https://istio-release.storage.googleapis.com/charts
-            targetRevision: 1.20.0
-            chart: istio
-            helm:
-              valueFiles:
-                - https://raw.githubusercontent.com/lixiaojun2914/demo-infra/main/gitops/infrastructure/istio/values/dev.yaml
           - name: prometheus
             path: gitops/infrastructure/monitoring/prometheus
             namespace: monitoring
@@ -60,7 +52,6 @@ spec:
             namespace: longhorn-system
             repoURL: https://github.com/lixiaojun2914/demo-infra
             targetRevision: main
-
   template:
     metadata:
       name: "{{name}}"

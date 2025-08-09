@@ -1,0 +1,10 @@
+replicas: 1
+antiAffinity: soft
+esJavaOpts: "-Xms256m -Xmx256m"
+resources:
+  requests:
+    cpu: 200m
+    memory: 512Mi
+  limits:
+    cpu: 500m
+    memory: 1Gi

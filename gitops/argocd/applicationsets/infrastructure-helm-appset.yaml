@@ -1,0 +1,123 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: infrastructure-helm
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: infrastructure-helm
+    app.kubernetes.io/part-of: infrastructure
+spec:
+  generators:
+    - list:
+        elements:
+          - name: istio
+            namespace: istio-system
+            chartRepoURL: https://istio-release.storage.googleapis.com/charts
+            chartName: istio
+            chartVersion: 1.20.0
+            valuesRepoURL: https://github.com/lixiaojun2914/demo-infra
+            valuesRevision: main
+            valuesFile: gitops/infrastructure/istio/values/dev.yaml
+          - name: prometheus
+            namespace: monitoring
+            chartRepoURL: https://prometheus-community.github.io/helm-charts
+            chartName: prometheus
+            chartVersion: 25.27.0
+            valuesRepoURL: https://github.com/lixiaojun2914/demo-infra
+            valuesRevision: main
+            valuesFile: gitops/infrastructure/monitoring/prometheus/values/dev.yaml
+          - name: grafana
+            namespace: monitoring
+            chartRepoURL: https://grafana.github.io/helm-charts
+            chartName: grafana
+            chartVersion: 7.3.12
+            valuesRepoURL: https://github.com/lixiaojun2914/demo-infra
+            valuesRevision: main
+            valuesFile: gitops/infrastructure/monitoring/grafana/values/dev.yaml
+          - name: alertmanager
+            namespace: monitoring
+            chartRepoURL: https://prometheus-community.github.io/helm-charts
+            chartName: alertmanager
+            chartVersion: 1.12.0
+            valuesRepoURL: https://github.com/lixiaojun2914/demo-infra
+            valuesRevision: main
+            valuesFile: gitops/infrastructure/monitoring/alertmanager/values/dev.yaml
+          - name: elasticsearch
+            namespace: logging
+            chartRepoURL: https://helm.elastic.co
+            chartName: elasticsearch
+            chartVersion: 8.5.1
+            valuesRepoURL: https://github.com/lixiaojun2914/demo-infra
+            valuesRevision: main
+            valuesFile: gitops/infrastructure/logging/elasticsearch/values/dev.yaml
+          - name: fluentbit
+            namespace: logging
+            chartRepoURL: https://fluent.github.io/helm-charts
+            chartName: fluent-bit
+            chartVersion: 0.47.9
+            valuesRepoURL: https://github.com/lixiaojun2914/demo-infra
+            valuesRevision: main
+            valuesFile: gitops/infrastructure/logging/fluentbit/values/dev.yaml
+          - name: kibana
+            namespace: logging
+            chartRepoURL: https://helm.elastic.co
+            chartName: kibana
+            chartVersion: 8.5.1
+            valuesRepoURL: https://github.com/lixiaojun2914/demo-infra
+            valuesRevision: main
+            valuesFile: gitops/infrastructure/logging/kibana/values/dev.yaml
+          - name: cert-manager
+            namespace: cert-manager
+            chartRepoURL: https://charts.jetstack.io
+            chartName: cert-manager
+            chartVersion: v1.14.2
+            valuesRepoURL: https://github.com/lixiaojun2914/demo-infra
+            valuesRevision: main
+            valuesFile: gitops/infrastructure/security/cert-manager/values/dev.yaml
+          - name: metallb
+            namespace: metallb-system
+            chartRepoURL: https://metallb.github.io/metallb
+            chartName: metallb
+            chartVersion: 0.14.3
+            valuesRepoURL: https://github.com/lixiaojun2914/demo-infra
+            valuesRevision: main
+            valuesFile: gitops/infrastructure/networking/metallb/values/dev.yaml
+          - name: longhorn
+            namespace: longhorn-system
+            chartRepoURL: https://charts.longhorn.io
+            chartName: longhorn
+            chartVersion: 1.6.2
+            valuesRepoURL: https://github.com/lixiaojun2914/demo-infra
+            valuesRevision: main
+            valuesFile: gitops/infrastructure/storage/longhorn/values/dev.yaml
+  template:
+    metadata:
+      name: "{{name}}"
+      namespace: argocd
+      labels:
+        app.kubernetes.io/name: "{{name}}"
+        app.kubernetes.io/part-of: infrastructure
+    spec:
+      project: infrastructure
+      sources:
+        - repoURL: "{{chartRepoURL}}"
+          chart: "{{chartName}}"
+          targetRevision: "{{chartVersion}}"
+          helm:
+            valueFiles:
+              - "$values/{{valuesFile}}"
+        - repoURL: "{{valuesRepoURL}}"
+          targetRevision: "{{valuesRevision}}"
+          ref: values
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{namespace}}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          - PrunePropagationPolicy=foreground
+          - PruneLast=true
+          - ApplyOutOfSyncOnly=true

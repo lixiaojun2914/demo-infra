@@ -6,11 +6,17 @@ metadata:
 spec:
   description: Infrastructure components (monitoring, logging, networking, etc.)
 
-  # 源仓库配置
   sourceRepos:
     - "https://github.com/lixiaojun2914/demo-infra"
+    - "https://istio-release.storage.googleapis.com/charts"
+    - "https://prometheus-community.github.io/helm-charts"
+    - "https://grafana.github.io/helm-charts"
+    - "https://helm.elastic.co"
+    - "https://fluent.github.io/helm-charts"
+    - "https://charts.jetstack.io"
+    - "https://metallb.github.io/metallb"
+    - "https://charts.longhorn.io"
 
-  # 目标集群和命名空间
   destinations:
     - namespace: argocd
       server: https://kubernetes.default.svc
@@ -27,7 +33,6 @@ spec:
     - namespace: longhorn-system
       server: https://kubernetes.default.svc
 
-  # 集群资源白名单
   clusterResourceWhitelist:
     - group: ""
       kind: Namespace
@@ -37,8 +42,13 @@ spec:
       kind: ClusterRoleBinding
     - group: "storage.k8s.io"
       kind: StorageClass
+    - group: "apiextensions.k8s.io"
+      kind: CustomResourceDefinition
+    - group: "admissionregistration.k8s.io"
+      kind: MutatingWebhookConfiguration
+    - group: "admissionregistration.k8s.io"
+      kind: ValidatingWebhookConfiguration
 
-  # 命名空间资源白名单
   namespaceResourceWhitelist:
     - group: ""
       kind: ConfigMap
@@ -80,3 +90,7 @@ spec:
       kind: DestinationRule
     - group: "security.istio.io"
       kind: AuthorizationPolicy
+    - group: "metallb.io"
+      kind: IPAddressPool
+    - group: "metallb.io"
+      kind: L2Advertisement
