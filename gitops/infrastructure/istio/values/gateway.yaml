@@ -1,3 +1,7 @@
+global:
+  hub: docker.io/istio
+  tag: 1.25.4
+
 service:
   type: NodePort
   ports:
