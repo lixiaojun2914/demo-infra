@@ -34,14 +34,6 @@ spec:
             valuesRepoURL: https://github.com/lixiaojun2914/demo-infra
             valuesRevision: main
             valuesFile: gitops/infrastructure/monitoring/grafana/values/dev.yaml
-          - name: alertmanager
-            namespace: monitoring
-            chartRepoURL: https://prometheus-community.github.io/helm-charts
-            chartName: alertmanager
-            chartVersion: 1.12.0
-            valuesRepoURL: https://github.com/lixiaojun2914/demo-infra
-            valuesRevision: main
-            valuesFile: gitops/infrastructure/monitoring/alertmanager/values/dev.yaml
           - name: elasticsearch
             namespace: logging
             chartRepoURL: https://helm.elastic.co
