@@ -66,14 +66,6 @@ spec:
             valuesRepoURL: https://github.com/lixiaojun2914/demo-infra
             valuesRevision: main
             valuesFile: gitops/infrastructure/logging/kibana/values/dev.yaml
-          - name: cert-manager
-            namespace: cert-manager
-            chartRepoURL: https://charts.jetstack.io
-            chartName: cert-manager
-            chartVersion: v1.14.2
-            valuesRepoURL: https://github.com/lixiaojun2914/demo-infra
-            valuesRevision: main
-            valuesFile: gitops/infrastructure/security/cert-manager/values/dev.yaml
           - name: longhorn
             namespace: longhorn-system
             chartRepoURL: https://charts.longhorn.io
