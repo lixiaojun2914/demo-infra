@@ -74,6 +74,10 @@ spec:
       kind: Role
     - group: "rbac.authorization.k8s.io"
       kind: RoleBinding
+    - group: "autoscaling"
+      kind: HorizontalPodAutoscaler
+    - group: "policy"
+      kind: PodDisruptionBudget
     - group: "argoproj.io"
       kind: Application
     - group: "cert-manager.io"
