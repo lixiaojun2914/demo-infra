@@ -74,14 +74,6 @@ spec:
             valuesRepoURL: https://github.com/lixiaojun2914/demo-infra
             valuesRevision: main
             valuesFile: gitops/infrastructure/security/cert-manager/values/dev.yaml
-          - name: metallb
-            namespace: metallb-system
-            chartRepoURL: https://metallb.github.io/metallb
-            chartName: metallb
-            chartVersion: 0.14.3
-            valuesRepoURL: https://github.com/lixiaojun2914/demo-infra
-            valuesRevision: main
-            valuesFile: gitops/infrastructure/networking/metallb/values/dev.yaml
           - name: longhorn
             namespace: longhorn-system
             chartRepoURL: https://charts.longhorn.io
