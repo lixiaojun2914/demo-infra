@@ -1,0 +1,36 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: demo-tls-cert
+  namespace: istio-system
+  annotations:
+    description: "为 Istio Gateway 提供 TLS 证书，支持 lixiaojun.io 域名"
+spec:
+  secretName: demo-tls-cert
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  dnsNames:
+    - lixiaojun.io
+    - "*.lixiaojun.io"
+  duration: 2160h # 90 days
+  renewBefore: 360h # 15 days before expiry
+---
+# 为开发环境准备的 staging 证书（可选）
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: demo-tls-cert-staging
+  namespace: istio-system
+  annotations:
+    description: "开发环境使用的 staging 证书，用于测试"
+spec:
+  secretName: demo-tls-cert-staging
+  issuerRef:
+    name: letsencrypt-staging
+    kind: ClusterIssuer
+  dnsNames:
+    - lixiaojun.io
+    - "*.lixiaojun.io"
+  duration: 2160h # 90 days
+  renewBefore: 360h # 15 days before expiry

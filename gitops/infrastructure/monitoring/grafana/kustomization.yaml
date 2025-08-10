@@ -11,20 +11,4 @@ commonLabels:
   app.kubernetes.io/part-of: monitoring
 
 resources:
-  - namespace.yaml
-  - grafana-deployment.yaml
-  - grafana-service.yaml
-  - grafana-config.yaml
-  - grafana-dashboards.yaml
-
-configMapGenerator:
-  - name: grafana-datasources
-    literals:
-      - datasources.yaml=|
-          apiVersion: 1
-          datasources:
-          - name: Prometheus
-            type: prometheus
-            url: http://prometheus:9090
-            access: proxy
-            isDefault: true 
+  - virtualservice.yaml

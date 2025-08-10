@@ -1,0 +1,18 @@
+# Sealed Secrets 配置
+# 使用默认配置，可以根据需要调整
+
+# 资源限制
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 100m
+    memory: 128Mi
+
+# 副本数
+replicaCount: 1
+
+# 服务类型
+service:
+  type: ClusterIP
