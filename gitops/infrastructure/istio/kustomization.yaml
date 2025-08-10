@@ -5,6 +5,7 @@ metadata:
   namespace: istio-system
 resources:
   - gateway.yaml
+  - certificate.yaml
 commonLabels:
   app.kubernetes.io/name: istio-gateway
   app.kubernetes.io/part-of: infrastructure

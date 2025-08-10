@@ -3,6 +3,7 @@ kind: Kustomization
 
 metadata:
   name: cert-manager-config
+  # ClusterIssuer 是集群级别资源，不需要指定命名空间
 
 commonLabels:
   app.kubernetes.io/name: cert-manager-config
@@ -10,4 +11,4 @@ commonLabels:
 
 resources:
   - letsencrypt-issuer.yaml
-  - certificate.yaml
+  # Certificate 已移动到 Istio 目录

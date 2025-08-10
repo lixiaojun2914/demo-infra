@@ -16,13 +16,15 @@ spec:
       path: gitops/infrastructure/security/cert-manager
   destination:
     server: https://kubernetes.default.svc
-    namespace: cert-manager
+    # ClusterIssuer 是集群级别资源，不需要指定命名空间
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
-      - CreateNamespace=true
+      - CreateNamespace=false
       - PrunePropagationPolicy=foreground
       - PruneLast=true
       - ApplyOutOfSyncOnly=true
+      - SkipDryRunOnMissingResource=true
+      - ServerSideApply=true
