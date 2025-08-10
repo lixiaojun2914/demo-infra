@@ -16,7 +16,7 @@ spec:
       path: gitops/infrastructure/security/cert-manager
   destination:
     server: https://kubernetes.default.svc
-    # ClusterIssuer 是集群级别资源，不需要指定命名空间
+    namespace: cert-manager
   syncPolicy:
     automated:
       prune: true
