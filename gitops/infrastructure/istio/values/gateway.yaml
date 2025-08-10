@@ -1,25 +1,3 @@
-service:
-  type: NodePort
-  ports:
-    # HTTP 端口 - 自动重定向到 HTTPS
-    - name: http
-      port: 80
-      nodePort: 30080
-      protocol: HTTP
-      tls:
-        httpsRedirect: true
-      hosts:
-        - "lixiaojun.io"
-    # HTTPS 端口 - 统一服务端口
-    - name: https
-      port: 443
-      nodePort: 30443
-      protocol: HTTPS
-      hosts:
-        - "lixiaojun.io"
-      tls:
-        mode: SIMPLE
-        credentialName: demo-tls-cert
 resources:
   requests:
     cpu: 50m

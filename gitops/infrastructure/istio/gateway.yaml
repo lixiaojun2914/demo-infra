@@ -1,0 +1,28 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: demo-gateway
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "lixiaojun.io"
+      # HTTP 自动重定向到 HTTPS
+      tls:
+        httpsRedirect: true
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      hosts:
+        - "lixiaojun.io"
+        - "*.lixiaojun.io"
+      tls:
+        mode: SIMPLE
+        credentialName: demo-tls-cert
