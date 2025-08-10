@@ -16,6 +16,7 @@ spec:
     - "https://charts.jetstack.io"
     - "https://metallb.github.io/metallb"
     - "https://charts.longhorn.io"
+    - "https://bitnami-labs.github.io/sealed-secrets"
 
   destinations:
     - namespace: argocd
@@ -31,6 +32,8 @@ spec:
     - namespace: metallb-system
       server: https://kubernetes.default.svc
     - namespace: longhorn-system
+      server: https://kubernetes.default.svc
+    - namespace: sealed-secrets
       server: https://kubernetes.default.svc
 
   clusterResourceWhitelist:
@@ -92,9 +95,29 @@ spec:
       kind: VirtualService
     - group: "networking.istio.io"
       kind: DestinationRule
+    - group: "networking.istio.io"
+      kind: ServiceEntry
+    - group: "networking.istio.io"
+      kind: Sidecar
+    - group: "networking.istio.io"
+      kind: EnvoyFilter
+    - group: "networking.istio.io"
+      kind: WorkloadEntry
+    - group: "networking.istio.io"
+      kind: WorkloadGroup
     - group: "security.istio.io"
       kind: AuthorizationPolicy
+    - group: "security.istio.io"
+      kind: PeerAuthentication
+    - group: "security.istio.io"
+      kind: RequestAuthentication
+    - group: "telemetry.istio.io"
+      kind: Telemetry
+    - group: "extensions.istio.io"
+      kind: WasmPlugin
     - group: "metallb.io"
       kind: IPAddressPool
     - group: "metallb.io"
       kind: L2Advertisement
+    - group: "bitnami.com"
+      kind: SealedSecret
