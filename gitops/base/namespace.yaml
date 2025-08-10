@@ -47,13 +47,6 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: longhorn-system
-  labels:
-    app.kubernetes.io/part-of: longhorn
----
-apiVersion: v1
-kind: Namespace
-metadata:
   name: istio-system
   labels:
     app.kubernetes.io/part-of: istio
