@@ -51,6 +51,8 @@ spec:
       kind: MutatingWebhookConfiguration
     - group: "admissionregistration.k8s.io"
       kind: ValidatingWebhookConfiguration
+    - group: "cert-manager.io"
+      kind: ClusterIssuer
 
   namespaceResourceWhitelist:
     - group: ""
@@ -85,8 +87,6 @@ spec:
       kind: Application
     - group: "cert-manager.io"
       kind: Certificate
-    - group: "cert-manager.io"
-      kind: ClusterIssuer
     - group: "cert-manager.io"
       kind: Issuer
     - group: "networking.istio.io"
