@@ -10,11 +10,6 @@ spec:
   project: infrastructure
   sources:
     - repoURL: https://istio-release.storage.googleapis.com/charts
-      chart: base
-      targetRevision: 1.25.4
-      helm:
-        releaseName: istio-base
-    - repoURL: https://istio-release.storage.googleapis.com/charts
       chart: istiod
       targetRevision: 1.25.4
       helm:
@@ -44,3 +39,5 @@ spec:
       - ApplyOutOfSyncOnly=true
       - SkipDryRunOnMissingResource=true
       - ServerSideApply=true
+      - RespectIgnoreDifferences=true
+    syncWave: "1"
