@@ -34,28 +34,6 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: istio-system
-  ignoreDifferences:
-    - group: admissionregistration.k8s.io
-      kind: MutatingWebhookConfiguration
-      name: istio-sidecar-injector
-      jsonPointers:
-        - /webhooks/0/clientConfig/caBundle
-    - group: admissionregistration.k8s.io
-      kind: ValidatingWebhookConfiguration
-      name: istio-validator-istio-system
-      jsonPointers:
-        - /webhooks/0/clientConfig/caBundle
-    - group: admissionregistration.k8s.io
-      kind: ValidatingWebhookConfiguration
-      name: istiod-default-validator
-      jsonPointers:
-        - /webhooks/0/clientConfig/caBundle
-    - group: apps
-      kind: Deployment
-      name: istiod
-      namespace: istio-system
-      jsonPointers:
-        - /spec/template/metadata/annotations
   syncPolicy:
     automated:
       prune: true
