@@ -1,0 +1,69 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: infrastructure
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: infrastructure
+    app.kubernetes.io/part-of: infrastructure
+spec:
+  generators:
+    - list:
+        elements:
+          - name: base
+            namespace: argocd
+            path: gitops/base
+            syncWave: "-1"
+          - name: istio-gateway-config
+            namespace: istio-system
+            path: gitops/infrastructure/istio
+            syncWave: "0"
+          - name: cert-manager-config
+            namespace: cert-manager
+            path: gitops/infrastructure/security/cert-manager
+            syncWave: "1"
+          - name: argocd
+            namespace: argocd
+            path: gitops/infrastructure/argocd
+            syncWave: "2"
+          - name: grafana
+            namespace: monitoring
+            path: gitops/infrastructure/monitoring/grafana
+            syncWave: "3"
+          - name: prometheus
+            namespace: monitoring
+            path: gitops/infrastructure/monitoring/prometheus
+            syncWave: "3"
+          - name: kubernetes-dashboard
+            namespace: kubernetes-dashboard
+            path: gitops/infrastructure/monitoring/kubernetes-dashboard
+            syncWave: "3"
+  template:
+    metadata:
+      name: "{{name}}"
+      namespace: argocd
+      labels:
+        app.kubernetes.io/name: "{{name}}"
+        app.kubernetes.io/part-of: infrastructure
+      annotations:
+        argocd.argoproj.io/sync-wave: "{{syncWave}}"
+        description: "{{name}} 基础设施服务"
+    spec:
+      project: infrastructure
+      sources:
+        - repoURL: https://github.com/lixiaojun2914/demo-infra
+          targetRevision: main
+          path: "{{path}}"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{namespace}}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - PrunePropagationPolicy=foreground
+          - PruneLast=true
+          - ApplyOutOfSyncOnly=true
+          - SkipDryRunOnMissingResource=true
+          - ServerSideApply=true

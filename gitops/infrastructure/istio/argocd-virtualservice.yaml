@@ -1,7 +1,7 @@
-apiVersion: networking.istio.io/v1beta1
+apiVersion: networking.istio.io/v1
 kind: VirtualService
 metadata:
-  name: argocd-virtualservice
+  name: argocd-vs
   namespace: argocd
 spec:
   hosts:
@@ -16,6 +16,7 @@ spec:
         uri: "/"
       route:
         - destination:
-            host: argocd-server.argocd.svc.cluster.local
+            host: argocd-server
             port:
               number: 443
+          weight: 100
