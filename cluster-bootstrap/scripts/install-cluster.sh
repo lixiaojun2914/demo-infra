@@ -40,8 +40,8 @@ system_update() {
     apt upgrade -y
     
     # 安装必要的软件包（不安装系统级ansible，在虚拟环境中安装特定版本）
-    log_info "安装 Python 3.12、Git、containerd 和 nginx-extra..."
-    apt install python3.12 python3.12-venv python3-pip git containerd nginx-extra -y
+    log_info "安装 Python 3.12、Git 和 containerd..."
+    apt install python3.12 python3.12-venv python3-pip git containerd -y
     
     log_success "系统更新和安装完成"
 }
@@ -194,56 +194,25 @@ post_install_fixes() {
     log_success "集群安装后修复完成"
 }
 
-# 安装和配置 nginx
-install_nginx() {
-    log_info "开始配置 nginx..."
+# 配置 iptables 端口转发
+configure_iptables() {
+    log_info "开始配置 iptables 端口转发..."
     
-    # 备份原有配置
-    if [ -f "/etc/nginx/nginx.conf" ]; then
-        log_info "备份原有 nginx 配置..."
-        cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.backup.$(date +%Y%m%d_%H%M%S)
+    # 添加端口转发规则
+    log_info "添加 HTTP 端口转发规则 (80 -> 30080)..."
+    iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 30080
+    
+    log_info "添加 HTTPS 端口转发规则 (443 -> 30443)..."
+    iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 443 -j REDIRECT --to-port 30443
+    
+    # 保存 iptables 规则（Ubuntu/Debian）
+    if command -v iptables-save &> /dev/null; then
+        log_info "保存 iptables 规则..."
+        iptables-save > /etc/iptables/rules.v4
+        log_success "iptables 规则已保存"
     fi
     
-    # 复制我们的配置文件
-    log_info "复制 nginx 配置文件..."
-    cp "$PROJECT_ROOT/nginx/nginx.conf" /etc/nginx/nginx.conf
-    
-    # 创建必要的日志目录
-    log_info "创建 nginx 日志目录..."
-    mkdir -p /var/log/nginx
-    
-    # 测试配置文件
-    log_info "测试 nginx 配置..."
-    if nginx -t; then
-        log_success "nginx 配置测试通过"
-    else
-        log_error "nginx 配置测试失败"
-        exit 1
-    fi
-    
-    # 启动 nginx 服务
-    log_info "启动 nginx 服务..."
-    systemctl enable nginx
-    systemctl restart nginx
-    
-    # 检查服务状态
-    if systemctl is-active --quiet nginx; then
-        log_success "nginx 服务启动成功"
-    else
-        log_error "nginx 服务启动失败"
-        systemctl status nginx
-        exit 1
-    fi
-    
-    # 配置防火墙（如果启用了 ufw）
-    if command -v ufw &> /dev/null && ufw status | grep -q "Status: active"; then
-        log_info "配置防火墙规则..."
-        ufw allow 80/tcp
-        ufw allow 443/tcp
-        log_success "防火墙规则配置完成"
-    fi
-    
-    log_success "nginx 配置完成"
+    log_success "iptables 端口转发配置完成"
 }
 
 # 显示安装后的信息
@@ -257,10 +226,10 @@ show_post_install_info() {
     echo "   kubectl get nodes"
     echo "   kubectl get pods --all-namespaces"
     echo ""
-    echo "3. 验证 nginx 状态:"
-    echo "   systemctl status nginx"
-    echo "   nginx -t"
+    echo "3. 验证 iptables 规则:"
+    echo "   iptables -t nat -L PREROUTING -n --line-numbers"
     echo "   curl -I http://localhost:80"
+    echo "   curl -I https://localhost:443"
     echo ""
     echo "4. 如果需要重置集群:"
     echo "   cd $KUBESPRAY_DIR"
@@ -278,7 +247,7 @@ main() {
     install_dependencies
     install_cluster
     post_install_fixes
-    install_nginx
+    configure_iptables
     show_post_install_info
     
     log_success "安装脚本执行完成！"
