@@ -10,11 +10,11 @@ spec:
       name: letsencrypt-prod
     solvers:
       - dns01:
-        cloudflare:
-          email: lixiaojun2914@gmail.com
-          apiTokenSecretRef:
-            name: cloudflare-api-token-secret
-            key: api-token
+          cloudflare:
+            email: lixiaojun2914@gmail.com
+            apiTokenSecretRef:
+              name: cloudflare-api-token-secret
+              key: api-token
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -28,8 +28,8 @@ spec:
       name: letsencrypt-staging
     solvers:
       - dns01:
-        cloudflare:
-          email: lixiaojun2914@gmail.com
-          apiTokenSecretRef:
-            name: cloudflare-api-token-secret
-            key: api-token
+          cloudflare:
+            email: lixiaojun2914@gmail.com
+            apiTokenSecretRef:
+              name: cloudflare-api-token-secret
+              key: api-token
