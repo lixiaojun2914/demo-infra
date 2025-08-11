@@ -6,6 +6,8 @@ metadata:
   labels:
     app.kubernetes.io/name: istio-base
     app.kubernetes.io/part-of: infrastructure
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   project: infrastructure
   sources:
@@ -24,4 +26,3 @@ spec:
       - ApplyOutOfSyncOnly=true
       - SkipDryRunOnMissingResource=true
       - ServerSideApply=true
-    syncWave: "0"
