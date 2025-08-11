@@ -11,4 +11,5 @@ commonLabels:
 
 resources:
   - letsencrypt-issuer.yaml
+  - sealed-cf-token-secret.yaml
   # Certificate 已移动到 Istio 目录
