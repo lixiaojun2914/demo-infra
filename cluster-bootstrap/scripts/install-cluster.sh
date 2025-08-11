@@ -40,8 +40,8 @@ system_update() {
     apt upgrade -y
     
     # 安装必要的软件包（不安装系统级ansible，在虚拟环境中安装特定版本）
-    log_info "安装 Python 3.12、Git 和 containerd..."
-    apt install python3.12 python3.12-venv python3-pip git containerd -y
+    log_info "安装 Python 3.12、Git、containerd 和 iptables-persistent..."
+    apt install python3.12 python3.12-venv python3-pip git containerd iptables-persistent -y
     
     log_success "系统更新和安装完成"
 }
@@ -208,7 +208,22 @@ configure_iptables() {
     # 保存 iptables 规则（Ubuntu/Debian）
     if command -v iptables-save &> /dev/null; then
         log_info "保存 iptables 规则..."
+        
+        # 创建 iptables 目录（如果不存在）
+        if [ ! -d "/etc/iptables" ]; then
+            log_info "创建 /etc/iptables 目录..."
+            mkdir -p /etc/iptables
+        fi
+        
+        # 保存规则
         iptables-save > /etc/iptables/rules.v4
+        
+        # 安装 iptables-persistent 来确保规则持久化
+        if ! dpkg -l | grep -q iptables-persistent; then
+            log_info "安装 iptables-persistent 来持久化规则..."
+            apt install iptables-persistent -y
+        fi
+        
         log_success "iptables 规则已保存"
     fi
     
