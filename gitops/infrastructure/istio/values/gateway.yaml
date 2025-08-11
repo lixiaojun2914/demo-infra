@@ -2,7 +2,7 @@ service:
   type: NodePort
   ports:
     # HTTP 端口
-    - name: http
+    - name: http2
       port: 80
       nodePort: 30080
       protocol: TCP
