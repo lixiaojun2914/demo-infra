@@ -21,6 +21,12 @@ spec:
   destinations:
     - namespace: argocd
       server: https://kubernetes.default.svc
+    - namespace: dev
+      server: https://kubernetes.default.svc
+    - namespace: staging
+      server: https://kubernetes.default.svc
+    - namespace: prod
+      server: https://kubernetes.default.svc
     - namespace: istio-system
       server: https://kubernetes.default.svc
     - namespace: monitoring
