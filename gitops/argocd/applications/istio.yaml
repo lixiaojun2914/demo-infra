@@ -50,6 +50,12 @@ spec:
       name: istiod-default-validator
       jsonPointers:
         - /webhooks/0/clientConfig/caBundle
+    - group: apps
+      kind: Deployment
+      name: istiod
+      namespace: istio-system
+      jsonPointers:
+        - /spec/template/metadata/annotations
   syncPolicy:
     automated:
       prune: true
