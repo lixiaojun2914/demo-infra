@@ -14,6 +14,7 @@ spec:
             email: lixiaojun2914@gmail.com
             apiTokenSecretRef:
               name: cloudflare-api-token-secret
+              namespace: cert-manager
               key: api-token
 ---
 apiVersion: cert-manager.io/v1
@@ -32,4 +33,5 @@ spec:
             email: lixiaojun2914@gmail.com
             apiTokenSecretRef:
               name: cloudflare-api-token-secret
+              namespace: cert-manager
               key: api-token
