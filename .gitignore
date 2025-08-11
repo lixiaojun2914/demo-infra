@@ -26,6 +26,10 @@ logs/
 *-secret.yaml
 *-secrets.yaml
 
+# Allow SealedSecret files (they are encrypted and safe to commit)
+!*-sealed-secret.yaml
+!*sealed-*.yaml
+
 # Local configuration
 .env
 .env.local
