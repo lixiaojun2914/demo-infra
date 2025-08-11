@@ -6,7 +6,6 @@ metadata:
 resources:
   - gateway.yaml
   - certificate.yaml
-  - sealed-cf-token-secret.yaml
 commonLabels:
   app.kubernetes.io/name: istio-gateway
   app.kubernetes.io/part-of: infrastructure
