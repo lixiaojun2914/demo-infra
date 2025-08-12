@@ -1,18 +1,3 @@
-## Monitors ConfigMap changes and POSTs to a URL
-## Ref: https://github.com/prometheus-operator/prometheus-operator/tree/main/cmd/prometheus-config-reloader
-##
-configmapReload:
-  ## configmap-reload resource requests and limits
-  ## Ref: http://kubernetes.io/docs/user-guide/compute-resources/
-  ##
-  resources:
-    requests:
-      cpu: 25m
-      memory: 32Mi
-    limits:
-      cpu: 50m
-      memory: 64Mi
-
 server:
   resources:
     requests:
@@ -22,15 +7,6 @@ server:
       cpu: 150m
       memory: 256Mi
   retention: 24h
-  sidecarContainers:
-    prometheus-server-configmap-reload:
-      resources:
-        requests:
-          cpu: 25m
-          memory: 32Mi
-        limits:
-          cpu: 50m
-          memory: 64Mi
 
 alertmanager:
   resources:
