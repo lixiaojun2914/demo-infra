@@ -198,12 +198,21 @@ post_install_fixes() {
 configure_iptables() {
     log_info "开始配置 iptables 端口转发..."
     
-    # 添加端口转发规则
-    log_info "添加 HTTP 端口转发规则 (80 -> 30080)..."
-    iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 30080
+    # 检查 HTTP 端口转发规则是否已存在
+    if iptables -t nat -C PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 30080 2>/dev/null; then
+        log_info "HTTP 端口转发规则 (80 -> 30080) 已存在，跳过添加"
+    else
+        log_info "添加 HTTP 端口转发规则 (80 -> 30080)..."
+        iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 30080
+    fi
     
-    log_info "添加 HTTPS 端口转发规则 (443 -> 30443)..."
-    iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 443 -j REDIRECT --to-port 30443
+    # 检查 HTTPS 端口转发规则是否已存在
+    if iptables -t nat -C PREROUTING -i eth0 -p tcp --dport 443 -j REDIRECT --to-port 30443 2>/dev/null; then
+        log_info "HTTPS 端口转发规则 (443 -> 30443) 已存在，跳过添加"
+    else
+        log_info "添加 HTTPS 端口转发规则 (443 -> 30443)..."
+        iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 443 -j REDIRECT --to-port 30443
+    fi
     
     # 保存 iptables 规则（Ubuntu/Debian）
     if command -v iptables-save &> /dev/null; then
