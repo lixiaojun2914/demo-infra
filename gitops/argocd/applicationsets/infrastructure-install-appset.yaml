@@ -10,7 +10,7 @@ spec:
   generators:
     - list:
         elements:
-          - name: sealed-secrets
+          - name: sealed-secrets-install
             namespace: sealed-secrets
             chartRepoURL: https://bitnami-labs.github.io/sealed-secrets
             chartName: sealed-secrets
@@ -18,7 +18,7 @@ spec:
             valuesRepoURL: https://github.com/lixiaojun2914/demo-infra
             valuesRevision: main
             valuesFile: gitops/infrastructure/monitoring/grafana/values/dev.yaml
-          - name: prometheus
+          - name: prometheus-install
             namespace: monitoring
             chartRepoURL: https://prometheus-community.github.io/helm-charts
             chartName: prometheus
@@ -26,7 +26,7 @@ spec:
             valuesRepoURL: https://github.com/lixiaojun2914/demo-infra
             valuesRevision: main
             valuesFile: gitops/infrastructure/monitoring/prometheus/values/dev.yaml
-          - name: grafana
+          - name: grafana-install
             namespace: monitoring
             chartRepoURL: https://grafana.github.io/helm-charts
             chartName: grafana

@@ -35,7 +35,7 @@ spec:
             path: gitops/infrastructure/monitoring/prometheus
             syncWave: "3"
           - name: kubernetes-dashboard
-            namespace: kubernetes-dashboard
+            namespace: kube-system
             path: gitops/infrastructure/monitoring/kubernetes-dashboard
             syncWave: "3"
   template:
