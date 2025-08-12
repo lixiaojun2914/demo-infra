@@ -40,13 +40,6 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: cert-manager
-  labels:
-    app.kubernetes.io/part-of: cert-manager
----
-apiVersion: v1
-kind: Namespace
-metadata:
   name: istio-system
   labels:
     app.kubernetes.io/part-of: istio
